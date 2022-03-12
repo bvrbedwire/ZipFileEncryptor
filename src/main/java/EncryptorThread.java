@@ -19,9 +19,17 @@ public class EncryptorThread extends Thread{
     @Override
     public void run() {
         try{
+            guIform.progressBar.setValue(0);
+            guIform.setEncType();
+            guIform.setCompType();
+
             String archiveName = getArchiveName();
             ZipFile zipFile = new ZipFile(archiveName);
-            guIform.term.insert("\nEncrypting file...", guIform.term.getText().length());
+
+            guIform.term.insert("\nEncrypting file... \n(Encryption: "
+                    + getEncName() + "; Compression: "
+                    + getCompName() + ")", guIform.term.getText().length());
+
             if(file.isDirectory()){
                 zipFile.addFolder(file, parameters);
             } else {
@@ -43,6 +51,36 @@ public class EncryptorThread extends Thread{
                 return archiveName;
             }
         }
+    }
+
+    private String getEncName(){
+        if (parameters.getEncryptionMethod() == 0){
+            return "standart encryption";
+        } else if (parameters.getEncryptionMethod() == 99){
+            switch (parameters.getAesKeyStrength()) {
+                case 1:
+                    return "AES_128";
+                case 3:
+                    return "AES_256";
+            }
+        }
+        return "";
+    }
+
+    private String getCompName(){
+        if (parameters.getCompressionLevel() == 1){
+            return "fastest";
+        } else if(parameters.getCompressionLevel() == 3){
+            return "fast";
+        } else if(parameters.getCompressionLevel() == 5){
+            return "normal";
+        } else if(parameters.getCompressionLevel() == 7){
+            return "maximum";
+        } else if(parameters.getCompressionLevel() == 9){
+            return "ultra";
+        }
+
+        return "";
     }
 
     private void onFinish(){parameters.setPassword("");}

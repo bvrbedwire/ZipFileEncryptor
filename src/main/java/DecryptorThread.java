@@ -17,6 +17,7 @@ public class DecryptorThread extends Thread{
     public void run() {
         String out = getOutputPath();
         try {
+            guIform.progressBar.setValue(0);
             ZipFile zipFile = new ZipFile(file);
             zipFile.setPassword(password);
             zipFile.extractAll(out);

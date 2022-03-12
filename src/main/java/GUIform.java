@@ -10,6 +10,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 
 public class GUIform {
+
     protected JPanel panel1;
     private JTextField filePath;
     private JButton openButton;
@@ -18,7 +19,14 @@ public class GUIform {
     private JButton encryptButton;
     protected JProgressBar progressBar;
     private JScrollPane scroll;
-
+    private JRadioButton btnStandartEnc;
+    private JRadioButton btnAes128;
+    private JRadioButton btnAes256;
+    private JRadioButton btnCompFastest;
+    private JRadioButton btnCompFast;
+    private JRadioButton btnCompNorm;
+    private JRadioButton btnComMax;
+    private JRadioButton btnCompUltra;
     private File selectedFile;
 
     ZipParameters parameters = new ZipParameters();
@@ -28,14 +36,27 @@ public class GUIform {
         term.setBorder(new LineBorder(new Color(93, 89, 86), 0));
         scroll.setBorder(new LineBorder(new Color(93, 89, 86), 1));
 
+        Font font = new Font("Noto Sans Mono", Font.PLAIN, 12);
+        UIManager.put("OptionPane.messageFont", font);
+
+        ButtonGroup bGEnc = new ButtonGroup();
+        btnStandartEnc.setSelected(true);
+        bGEnc.add(btnStandartEnc);
+        bGEnc.add(btnAes128);
+        bGEnc.add(btnAes256);
+
+        ButtonGroup bGComp = new ButtonGroup();
+        btnCompNorm.setSelected(true);
+        bGComp.add(btnCompFastest);
+        bGComp.add(btnCompFast);
+        bGComp.add(btnCompNorm);
+        bGComp.add(btnComMax);
+        bGComp.add(btnCompUltra);
+
+
         parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
         parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_ULTRA);
         parameters.setEncryptFiles(true);
-        parameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
-        parameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
-
-        Font font = new Font("Noto Sans Mono", Font.PLAIN, 12);
-        UIManager.put("OptionPane.messageFont", font);
 
         openButton.addActionListener(new Action() {
             @Override
@@ -165,5 +186,32 @@ public class GUIform {
         decryptButton.setEnabled(false);
         encryptButton.setEnabled(false);
         filePath.setText("");
+    }
+
+    protected void setEncType(){
+        if (btnAes256.isSelected()){
+            parameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
+            parameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
+        } else if (btnAes128.isSelected()){
+            parameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
+            parameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_128);
+        } else {
+            parameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_STANDARD);
+        }
+
+    }
+
+    protected void setCompType(){
+        if(btnCompFastest.isSelected()){
+            parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_FASTEST);
+        } else if (btnCompFast.isSelected()){
+            parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_FAST);
+        } else if (btnComMax.isSelected()){
+            parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_MAXIMUM);
+        } else if (btnCompUltra.isSelected()){
+            parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_ULTRA);
+        } else {
+            parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
+        }
     }
 }

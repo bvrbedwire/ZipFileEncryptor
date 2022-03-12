@@ -3,7 +3,7 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame("ZipFileEncryptor");
-        frame.setSize(600, 400);
+        frame.setSize(600, 450);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         GUIform form = new GUIform();
