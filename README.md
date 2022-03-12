@@ -1,2 +1,2 @@
 # ZipFileEncryptor
-[![image](/media/archivator.mp4)](/media/archivator.mp4)
+[![image](https://github.com/bvrbedwire/ZipFileEncryptor/blob/main/media/archivator.mp4)](https://github.com/bvrbedwire/ZipFileEncryptor/blob/main/media/archivator.mp4)
