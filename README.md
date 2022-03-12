@@ -1,2 +1,2 @@
 # ZipFileEncryptor
-[![image](https://github.com/bvrbedwire/ZipFileEncryptor/blob/main/media/archive.gif)](https://github.com/bvrbedwire/ZipFileEncryptor/blob/main/media/archive.gif)
+[![image](https://github.com/bvrbedwire/ZipFileEncryptor/blob/main/media/archivator.gif)](https://github.com/bvrbedwire/ZipFileEncryptor/blob/main/media/archivator.gif)
